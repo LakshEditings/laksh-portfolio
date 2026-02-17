@@ -1,18 +1,13 @@
+// src/Components/Footer.jsx
 import React from 'react';
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="py-8 px-6 border-t border-white/10">
-      <div className="max-w-7xl mx-auto text-center">
-        <p className="text-gray-400">
-          © 2025 V. Lakshen. Committed to Sustainable Vehicles for a Greener Future.
-        </p>
-        <p className="text-gray-500 text-sm mt-2">
-          Built with React & Tailwind CSS
-        </p>
+    <footer className="border-t border-gray-200 py-12 mt-20">
+      <div className="container text-center text-gray-600 text-sm">
+        <p>© {new Date().getFullYear()} V. Lakshen</p>
+        <p className="mt-2">Committed to sustainable vehicles for a greener future.</p>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}
