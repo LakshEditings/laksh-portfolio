@@ -100,6 +100,7 @@ export default function Activities() {
     };
 
     fetchAll();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClick = (entry) => {
