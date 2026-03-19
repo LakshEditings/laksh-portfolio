@@ -6,39 +6,57 @@ const SHEETS_CONFIG = {
   projects: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTDbVMoiQwdZH634HNq9DNSDOYCx5tdmSSzUn3Q4wISXrtYyiMda9n1KA0LwW_oiYFmglBNNK9Rt5zO/pub?output=csv'
 };
 
+const CACHE_KEY_PREFIX = 'sheetsCache_';
+const CACHE_EXPIRY_MS = 5 * 60 * 1000; // 5 minutes
+
 // Fetch data from Google Sheets CSV
 const fetchSheetData = async (sheetType) => {
   try {
-    // Add cache busting parameter to force fresh data
+    const cacheKey = CACHE_KEY_PREFIX + sheetType;
+    const cachedData = localStorage.getItem(cacheKey);
+
+    if (cachedData) {
+      try {
+        const parsedCache = JSON.parse(cachedData);
+        // Check if cache is still valid
+        if (new Date().getTime() - parsedCache.timestamp < CACHE_EXPIRY_MS) {
+          console.log(`⚡ Using cached data for ${sheetType}`);
+          return parsedCache.data;
+        }
+      } catch (e) {
+        console.warn('Cache parsing failed, fetching new data');
+      }
+    }
+
+    // Cache expired or not found, fetch fresh data
     const timestamp = new Date().getTime();
     const urlWithCacheBust = `${SHEETS_CONFIG[sheetType]}&_=${timestamp}`;
     
-    console.log(`🔍 Fetching ${sheetType} from:`, urlWithCacheBust);
+    console.log(`🔍 Fetching fresh ${sheetType} from API`);
     
     const response = await fetch(urlWithCacheBust, {
-      cache: 'no-store', // Don't use cached response
-      headers: {
-        'Cache-Control': 'no-cache'
-      }
+      cache: 'no-store'
     });
-    
-    console.log(`📡 Response status for ${sheetType}:`, response.status);
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
     const csvText = await response.text();
-    console.log(`📄 CSV text for ${sheetType}:`, csvText.substring(0, 200) + '...');
     
     return new Promise((resolve, reject) => {
       Papa.parse(csvText, {
         header: true,
         skipEmptyLines: true,
-        dynamicTyping: false,
         complete: (results) => {
-          console.log(`✅ Parsed ${sheetType} data:`, results.data);
-          console.log(`📊 Number of rows:`, results.data.length);
+          console.log(`✅ Parsed fresh ${sheetType} data`);
+          
+          // Save to cache
+          localStorage.setItem(cacheKey, JSON.stringify({
+            timestamp: new Date().getTime(),
+            data: results.data
+          }));
+          
           resolve(results.data);
         },
         error: (error) => {
@@ -51,6 +69,45 @@ const fetchSheetData = async (sheetType) => {
     console.error(`❌ Fetch error for ${sheetType}:`, error);
     throw error;
   }
+};
+
+// Helper: read cache synchronously
+const getCachedDataSync = (sheetType) => {
+  try {
+    const cachedData = localStorage.getItem(CACHE_KEY_PREFIX + sheetType);
+    if (cachedData) {
+      const parsedCache = JSON.parse(cachedData);
+      if (new Date().getTime() - parsedCache.timestamp < CACHE_EXPIRY_MS) {
+        return parsedCache.data;
+      }
+    }
+  } catch (e) {
+    // ignore
+  }
+  return null;
+};
+
+// Helper: Extract 4-digit year from title (e.g. "Appathon 2021" -> "2021")
+const extractYear = (text) => {
+  if (!text) return '';
+  const match = text.match(/\b(19\d{2}|20\d{2})\b/);
+  return match ? match[1] : '';
+};
+
+export const getCachedAchievementsSync = () => {
+  const data = getCachedDataSync('achievements');
+  if (!data) return null;
+  
+  return data
+    .filter(item => item.title && item.title.trim() !== '')
+    .map(item => ({
+      title: (item.title || '').trim(),
+      subtitle: (item.subtitle || '').trim(),
+      award: (item.award || '').trim(),
+      type: (item.type || 'Finalist').trim(),
+      linkedinpost: (item.linkedinpost || '').trim(),
+      year: (item.year || '').trim() || extractYear(item.title)
+    }));
 };
 
 // Get all achievements
@@ -66,7 +123,8 @@ export const getAchievements = async () => {
         subtitle: (item.subtitle || '').trim(),
         award: (item.award || '').trim(),
         type: (item.type || 'Finalist').trim(),
-        linkedinpost: (item.linkedinpost || '').trim()
+        linkedinpost: (item.linkedinpost || '').trim(),
+        year: (item.year || '').trim() || extractYear(item.title)
       }));
     
     console.log('🎯 Mapped achievements:', mapped);
@@ -75,6 +133,31 @@ export const getAchievements = async () => {
     console.error('❌ Error getting achievements:', error);
     return [];
   }
+};
+
+export const getCachedProjectsSync = () => {
+  const data = getCachedDataSync('projects');
+  if (!data) return null;
+
+  return data
+    .filter(item => item.title && item.title.trim() !== '')
+    .map(item => {
+      let techArray = [];
+      if (item.tech) {
+        const techStr = String(item.tech).replace(/^["']|["']$/g, '');
+        techArray = techStr.split(',').map(t => t.trim()).filter(t => t);
+      }
+      
+      return {
+        title: (item.title || '').trim(),
+        description: (item.description || '').trim(),
+        status: (item.status || 'Ongoing').trim(),
+        tech: techArray,
+        link: (item.link || '').trim(),
+        image: (item.image || '').trim(),
+        year: (item.year || '').trim() || extractYear(item.title)
+      };
+    });
 };
 
 // Get all projects
@@ -99,7 +182,8 @@ export const getProjects = async () => {
           status: (item.status || 'Ongoing').trim(),
           tech: techArray,
           link: (item.link || '').trim(),
-          image: (item.image || '').trim()
+          image: (item.image || '').trim(),
+          year: (item.year || '').trim() || extractYear(item.title)
         };
       });
     
