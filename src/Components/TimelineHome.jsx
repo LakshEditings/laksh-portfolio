@@ -5,6 +5,7 @@ import { Linkedin, Github, Instagram, Twitter } from 'lucide-react';
 export default function TimelineHome() {
   return (
     <div className="container about-page">
+      <img src="/IMG_0437.jpg" alt="V. Lakshen" className="profile-img" />
       <p className="about-bio">
         I'm <strong>V. Lakshen</strong> — a future entrepreneur and industrial automation
         enthusiast based in <strong>Chennai, India</strong>. I build sustainable and innovative

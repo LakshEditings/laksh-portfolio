@@ -1,5 +1,4 @@
 // src/Components/ActivityDetail.jsx — Opens when an activity is clicked
-// If the activity has a LinkedIn/external link, embeds it via iframe
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
@@ -35,30 +34,19 @@ export default function ActivityDetail() {
       )}
 
       {hasLink && (
-        <>
-          <div className="detail-link-bar">
-            <a
-              href={entry.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="detail-external-link"
-            >
-              <ExternalLink className="detail-external-icon" />
-              Open in new tab
-            </a>
-          </div>
-
-          <div className="detail-embed-container">
-            <iframe
-              src={entry.link}
-              title={entry.title}
-              className="detail-iframe"
-              frameBorder="0"
-              allowFullScreen
-              sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-            />
-          </div>
-        </>
+        <div className="detail-link-card">
+          <p className="detail-link-desc">
+            This activity has an external link. Click below to view it on the platform.
+          </p>
+          <a
+            href={entry.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="detail-primary-link"
+          >
+            Visit External Link <ExternalLink className="detail-external-icon" />
+          </a>
+        </div>
       )}
 
       {!hasLink && (
