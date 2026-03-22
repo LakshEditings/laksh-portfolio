@@ -20,7 +20,8 @@ const buildGroups = (achievements, projects) => {
         detail: a.award || a.subtitle || a.type || '',
         link: a.linkedinpost || '',
         year: a.year || '',
-        type: 'achievement'
+        type: 'achievement',
+        views: a.views || 0,
       });
     });
   }
@@ -33,7 +34,8 @@ const buildGroups = (achievements, projects) => {
         detail: p.status || '',
         link: p.link || '',
         year: p.year || '',
-        type: 'project'
+        type: 'project',
+        views: p.views || 0,
       });
     });
   }
@@ -126,24 +128,24 @@ export default function Activities() {
       {error && <p className="error-text">{error}</p>}
 
       <ul className="timeline-list">
-        {groups.map((group) =>
-          group.entries.map((entry, i) => (
-            <li
-              key={`${group.year}-${i}`}
-              className={`timeline-row ${entry.type === 'project' ? 'timeline-row-project' : ''}`}
-              onClick={() => handleClick(entry)}
-              style={{ cursor: 'pointer' }}
-            >
-              {i === 0 ? (
-                <span className="timeline-year">{group.year}</span>
-              ) : (
-                <span className="timeline-year-spacer" />
-              )}
-              <span className="timeline-title">{entry.title}</span>
-              <span className="timeline-meta">{entry.detail}</span>
-            </li>
-          ))
-        )}
+        {groups.map((group) => (
+          <React.Fragment key={group.year}>
+            <li className="timeline-year-header">{group.year}</li>
+            {group.entries.map((entry, i) => (
+              <li
+                key={`${group.year}-${i}`}
+                className={`timeline-row ${entry.type === 'project' ? 'timeline-row-project' : ''}`}
+                onClick={() => handleClick(entry)}
+                style={{ cursor: 'pointer' }}
+              >
+                <span className="timeline-title">{entry.title}</span>
+                <span className="timeline-views">
+                  {entry.views > 0 ? entry.views.toLocaleString() : ''}
+                </span>
+              </li>
+            ))}
+          </React.Fragment>
+        ))}
       </ul>
     </div>
   );

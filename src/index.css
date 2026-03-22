@@ -144,8 +144,8 @@ hr {
 
 .profile-img {
   float: right;
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   object-fit: cover;
   margin: 0 0 24px 32px;
@@ -415,6 +415,18 @@ hr {
   border-bottom: none;
 }
 
+/* Year group heading */
+.timeline-year-header {
+  list-style: none;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fg);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 28px 0 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
 .timeline-row-project {
   background: #1a1a1a;
   border-bottom: none;
@@ -462,6 +474,15 @@ hr {
   font-variant-numeric: tabular-nums;
 }
 
+.timeline-views {
+  font-size: 13px;
+  color: var(--fg-dimmed);
+  text-align: right;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  min-width: 48px;
+}
+
 /* ── Footer ── */
 .site-footer {
   border-top: 1px solid var(--border);
@@ -479,43 +500,153 @@ hr {
 }
 
 /* ── Responsive ── */
+
+/* Tablet (768px) */
+@media (max-width: 768px) {
+  .profile-img {
+    width: 110px;
+    height: 110px;
+    margin: 0 0 16px 20px;
+  }
+
+  .about-bio {
+    font-size: 14px;
+  }
+
+  .contributions-title {
+    font-size: 18px;
+  }
+
+  .detail-title {
+    font-size: 20px;
+  }
+
+  .timeline-row-project {
+    margin: 4px -12px;
+    padding: 12px 12px;
+  }
+}
+
+/* Mobile (640px) */
 @media (max-width: 640px) {
   body {
     font-size: 14px;
   }
 
-  .about-title {
-    font-size: 24px;
-  }
-
-  .history-item {
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .timeline-row {
-    flex-direction: column;
-    gap: 4px;
-    padding: 10px 0;
-  }
-
-  .timeline-year, .timeline-year-spacer {
-    min-width: auto;
-  }
-
-  .timeline-meta {
-    text-align: left;
-  }
-
-  .nav-inner {
-    padding: 0 16px;
-  }
-
+  /* Container */
   .container {
     padding: 0 16px;
   }
 
+  /* Navbar */
+  .nav-inner {
+    padding: 0 16px;
+    height: 48px;
+  }
+
+  .nav-name {
+    font-size: 14px;
+  }
+
+  .nav-link, .nav-link-x {
+    font-size: 13px;
+    gap: 4px;
+  }
+
+  .nav-links {
+    gap: 14px;
+  }
+
+  /* About page */
+  .about-page {
+    padding-top: 80px;
+    padding-bottom: 48px;
+  }
+
+  /* Profile image — move to top, centered, above bio */
+  .profile-img {
+    float: none;
+    display: block;
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 24px auto;
+  }
+
+  .about-bio {
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .about-title {
+    font-size: 22px;
+  }
+
+  .contributions-title {
+    font-size: 17px;
+    margin-bottom: 16px;
+  }
+
+  .contributions-list li {
+    font-size: 14px;
+    padding-bottom: 12px;
+  }
+
+  /* Social row */
   .social-row {
     gap: 12px;
+    margin-top: 32px;
+  }
+
+  /* Timeline / Activities */
+  .activities-page {
+    padding-top: 80px;
+    padding-bottom: 48px;
+  }
+
+  .timeline-row {
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 0;
+    align-items: flex-start;
+  }
+
+  .timeline-year, .timeline-year-spacer {
+    min-width: auto;
+    font-size: 12px;
+  }
+
+  .timeline-title {
+    font-size: 14px;
+  }
+
+  .timeline-meta {
+    text-align: left;
+    font-size: 12px;
+  }
+
+  /* Project rows — remove negative margin that causes overflow on mobile */
+  .timeline-row-project {
+    margin: 4px 0;
+    padding: 10px 12px;
+    border-radius: 6px;
+  }
+
+  /* Detail page */
+  .detail-page {
+    padding-top: 80px;
+    padding-bottom: 48px;
+  }
+
+  .detail-title {
+    font-size: 20px;
+  }
+
+  .detail-link-card {
+    padding: 20px;
+  }
+
+  .detail-primary-link {
+    font-size: 13px;
+    padding: 9px 16px;
   }
 }

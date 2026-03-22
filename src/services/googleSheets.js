@@ -106,7 +106,8 @@ export const getCachedAchievementsSync = () => {
       award: (item.award || '').trim(),
       type: (item.type || 'Finalist').trim(),
       linkedinpost: (item.linkedinpost || '').trim(),
-      year: (item.year || '').trim() || extractYear(item.title)
+      year: (item.year || '').trim() || extractYear(item.title),
+      views: parseInt(item.views) || 0,
     }));
 };
 
@@ -124,7 +125,8 @@ export const getAchievements = async () => {
         award: (item.award || '').trim(),
         type: (item.type || 'Finalist').trim(),
         linkedinpost: (item.linkedinpost || '').trim(),
-        year: (item.year || '').trim() || extractYear(item.title)
+        year: (item.year || '').trim() || extractYear(item.title),
+        views: parseInt(item.views) || 0,
       }));
     
     console.log('🎯 Mapped achievements:', mapped);
@@ -155,7 +157,8 @@ export const getCachedProjectsSync = () => {
         tech: techArray,
         link: (item.link || '').trim(),
         image: (item.image || '').trim(),
-        year: (item.year || '').trim() || extractYear(item.title)
+        year: (item.year || '').trim() || extractYear(item.title),
+        views: parseInt(item.views) || 0,
       };
     });
 };
@@ -183,7 +186,8 @@ export const getProjects = async () => {
           tech: techArray,
           link: (item.link || '').trim(),
           image: (item.image || '').trim(),
-          year: (item.year || '').trim() || extractYear(item.title)
+          year: (item.year || '').trim() || extractYear(item.title),
+          views: parseInt(item.views) || 0,
         };
       });
     

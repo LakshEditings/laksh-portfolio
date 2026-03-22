@@ -1,12 +1,25 @@
 // src/Components/ActivityDetail.jsx — Opens when an activity is clicked
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
+
+const VIEWS_URL = process.env.REACT_APP_VIEWS_URL;
 
 export default function ActivityDetail() {
   const location = useLocation();
   const navigate = useNavigate();
   const entry = location.state?.entry;
+
+  // Increment view count in Google Sheets via Apps Script on every page open
+  useEffect(() => {
+    if (!entry?.title || !VIEWS_URL || VIEWS_URL === 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') return;
+    fetch(VIEWS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ title: entry.title }),
+    }).catch(() => {}); // silently fail — never break the UI
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!entry) {
     return (
