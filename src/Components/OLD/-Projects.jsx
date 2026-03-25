@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Code, Github, ExternalLink, Loader2, X, Play } from 'lucide-react';
-import { getProjects } from '../services/googleSheets';
+import { getProjects } from '../../services/googleSheets';
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -115,7 +115,7 @@ const Projects = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Projects</span>
           </h2>
-          
+
           {error && (
             <div className="mb-8 p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-center">
               {error}
@@ -124,23 +124,21 @@ const Projects = () => {
 
           <div className="grid md:grid-cols-2 gap-6">
             {projects.map((project, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 onClick={() => handleProjectClick(project)}
-                className={`bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-cyan-500/50 transition-all hover:shadow-lg hover:shadow-cyan-500/10 group ${
-                  project.image ? 'cursor-pointer' : ''
-                }`}
+                className={`bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-cyan-500/50 transition-all hover:shadow-lg hover:shadow-cyan-500/10 group ${project.image ? 'cursor-pointer' : ''
+                  }`}
               >
                 <div className="flex justify-between items-start mb-4">
                   <div className="p-3 bg-cyan-500/10 rounded-lg group-hover:bg-cyan-500/20 transition-all">
                     <Code className="w-6 h-6 text-cyan-400" />
                   </div>
                   <div className="flex flex-col items-end gap-2">
-                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      project.status === 'Completed' 
-                        ? 'bg-green-500/10 text-green-400 border border-green-500/30' 
+                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${project.status === 'Completed'
+                        ? 'bg-green-500/10 text-green-400 border border-green-500/30'
                         : 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/30'
-                    }`}>
+                      }`}>
                       {project.status}
                     </span>
                     {project.image && (
@@ -174,7 +172,7 @@ const Projects = () => {
 
       {/* Image/Video Popup */}
       {showPopup && selectedProject && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
           onClick={closePopup}
         >
@@ -185,14 +183,14 @@ const Projects = () => {
             >
               <X className="w-6 h-6 text-white" />
             </button>
-            
+
             <div className="bg-white/5 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10">
               <div className="p-4 bg-gradient-to-r from-cyan-500/20 to-blue-600/20 border-b border-white/10">
                 <h3 className="text-2xl font-bold text-white">{selectedProject.title}</h3>
                 <p className="text-gray-300 mt-2">{selectedProject.description}</p>
               </div>
-              
-              <div 
+
+              <div
                 className="relative group"
                 onMouseMove={handleMouseMove}
                 onMouseEnter={() => setIsHovering(true)}
@@ -220,7 +218,7 @@ const Projects = () => {
                     onClick={handleImageClick}
                   />
                 )}
-                
+
                 {/* Custom Cursor Text - "To Video" */}
                 {selectedProject.link && isHovering && (
                   <div
