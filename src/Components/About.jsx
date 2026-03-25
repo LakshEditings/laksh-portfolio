@@ -8,7 +8,7 @@ export default function About() {
 
       <div className="prose prose-lg max-w-none text-gray-800">
         <p>
-          I am a future entrepreneur and industrial automation enthusiast dedicated 
+          I am a future Entreprenur and Industrial Automation enthusiast dedicated 
           to building sustainable and innovative technological solutions. My focus 
           lies in upskilling innovative technologies for efficiency and creating 
           sustainable vehicles for a greener future.
