@@ -1,8 +1,7 @@
 // src/Components/TimelineHome.jsx — About page (rauchg.com /about style)
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Linkedin, Github, Instagram, Twitter } from 'lucide-react';
-import cvPdf from './Resume/Lakshen CV 14.8.26 .pdf';
-import resumePdf from './Resume/Laksh Brief Resume 1 14.08.26.pdf';
 
 export default function TimelineHome() {
   return (
@@ -127,24 +126,24 @@ export default function TimelineHome() {
         </div>
 
         <div className="resume-links-right">
-          <a
-            href={cvPdf}
+          <Link
+            to="/cv"
             target="_blank"
             rel="noopener noreferrer"
             className="doc-link"
-            title="Open CV (PDF)"
+            title="Open CV"
           >
             CV
-          </a>
-          <a
-            href={resumePdf}
+          </Link>
+          <Link
+            to="/resume"
             target="_blank"
             rel="noopener noreferrer"
             className="doc-link"
-            title="Open Resume (PDF)"
+            title="Open Resume"
           >
             Resume
-          </a>
+          </Link>
         </div>
       </div>
     </div>
