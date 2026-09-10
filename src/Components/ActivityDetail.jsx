@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 
-const VIEWS_URL = process.env.REACT_APP_VIEWS_URL;
+const VIEWS_URL = typeof process !== 'undefined' ? process.env?.REACT_APP_VIEWS_URL : import.meta.env?.VITE_VIEWS_URL;
 
 export default function ActivityDetail() {
   const location = useLocation();

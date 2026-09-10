@@ -363,9 +363,41 @@ hr {
 /* Social row */
 .social-row {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 16px;
   margin-top: 48px;
   flex-wrap: wrap;
+}
+
+.social-links-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.resume-links-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.doc-link {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--fg);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: -0.01em;
+  transition: color 0.15s ease, opacity 0.15s ease, transform 0.15s ease;
+}
+
+.doc-link:hover {
+  color: var(--fg-muted);
+  transform: translateY(-1px);
 }
 
 .social-link {
@@ -593,8 +625,18 @@ hr {
 
   /* Social row */
   .social-row {
-    gap: 12px;
+    gap: 16px;
     margin-top: 32px;
+  }
+
+  .social-links-left {
+    gap: 12px;
+  }
+
+  .resume-links-right {
+    gap: 16px;
+    width: 100%;
+    justify-content: flex-start;
   }
 
   /* Timeline / Activities */

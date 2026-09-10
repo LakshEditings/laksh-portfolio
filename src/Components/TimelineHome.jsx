@@ -1,6 +1,8 @@
 // src/Components/TimelineHome.jsx — About page (rauchg.com /about style)
 import React from 'react';
 import { Linkedin, Github, Instagram, Twitter } from 'lucide-react';
+import cvPdf from './Resume/Lakshen CV 14.8.26 .pdf';
+import resumePdf from './Resume/Laksh Brief Resume 1 14.08.26.pdf';
 
 export default function TimelineHome() {
   return (
@@ -89,38 +91,61 @@ export default function TimelineHome() {
       </ul>
 
       <div className="social-row">
-        <a
-          href="https://www.linkedin.com/in/v-lakshen-b1103a213/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="social-link"
-        >
-          <Linkedin /> LinkedIn
-        </a>
-        <a
-          href="https://github.com/Laksheditings"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="social-link"
-        >
-          <Github /> GitHub
-        </a>
-        <a
-          href="https://www.instagram.com/lakshen_india"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="social-link"
-        >
-          <Instagram /> Instagram
-        </a>
-        <a
-          href="https://x.com/Lakshen2006"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="social-link"
-        >
-          <Twitter /> X / Twitter
-        </a>
+        <div className="social-links-left">
+          <a
+            href="https://www.linkedin.com/in/v-lakshen-b1103a213/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link"
+          >
+            <Linkedin /> LinkedIn
+          </a>
+          <a
+            href="https://github.com/Laksheditings"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link"
+          >
+            <Github /> GitHub
+          </a>
+          <a
+            href="https://www.instagram.com/lakshen_india"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link"
+          >
+            <Instagram /> Instagram
+          </a>
+          <a
+            href="https://x.com/Lakshen2006"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="social-link"
+          >
+            <Twitter /> X / Twitter
+          </a>
+        </div>
+
+        <div className="resume-links-right">
+          <a
+            href={cvPdf}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="doc-link"
+            title="Open CV (PDF)"
+          >
+            CV
+          </a>
+          <a
+            href={resumePdf}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="doc-link"
+            title="Open Resume (PDF)"
+          >
+            Resume
+          </a>
+        </div>
       </div>
     </div>
   );
