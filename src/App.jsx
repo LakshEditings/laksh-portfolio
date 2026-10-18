@@ -6,7 +6,7 @@ import Activities from './Components/Activities';
 import ActivityDetail from './Components/ActivityDetail';
 import DocViewer from './Components/DocViewer';
 import Footer from './Components/Footer';
-import cvPdf from './Components/Resume/Lakshen CV 14.8.26 .pdf';
+import cvPdf from './Components/Resume/Lakshen CV 18.10.26 .pdf';
 import resumePdf from './Components/Resume/Laksh Brief Resume 1 14.08.26.pdf';
 import { getAchievements, getProjects } from './services/googleSheets';
 import './index.css';
