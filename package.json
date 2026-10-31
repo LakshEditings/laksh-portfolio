@@ -17,6 +17,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "prebuild": "node scripts/sync-resume.js",
+    "predev": "node scripts/sync-resume.js",
+    "prestart": "node scripts/sync-resume.js",
     "dev": "npx vite --host",
     "start": "react-scripts start",
     "build": "react-scripts build",
